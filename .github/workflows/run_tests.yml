@@ -42,12 +42,19 @@ jobs:
 
       - run: |
             cd src
+            
             python3 -m http.server 8000 &
+            
             sleep 10 &&
+            
             curl http://localhost:8000
+            
             cd ..
+            
             cd tests
+            
             npm install
+            
             ./node_modules/.bin/mocha *.js
       - uses: actions/upload-artifact@v4
 

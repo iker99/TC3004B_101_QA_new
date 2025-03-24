@@ -27,12 +27,12 @@ jobs:
     - name: Build with Maven
       run: |
           cd back/calculator-api
-           ./mvnw clean spring-boot:run & 
+           mvn clean spring-boot:run & 
            echo "waiting 5 seconds for the server to start"
            sleep 5 
            attempt_counter=0
            max_attempts=5
-           until $(curl --output /dev/null --silent --head --fail http://localhost:8080/add); do
+           until $(curl --output /dev/null --silent --head --fail http://localhost:8080/add?num1=1&num2=1); do
               if [ ${attempt_counter} -eq ${max_attempts} ];then
                 echo "Max attempts reached"
                 exit 1

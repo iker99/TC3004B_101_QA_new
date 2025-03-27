@@ -27,22 +27,21 @@ jobs:
     - name: Build with Maven
       run: |
           cd back/calculator-api
-           mvn clean spring-boot:run & 
-           echo "waiting 5 seconds for the server to start"
-           sleep 5 
-           attempt_counter=0
-           max_attempts=5
-           until $(curl --output /dev/null --silent --head --fail http://localhost:8080/api/calculator/calculate?num1=10&num2=5&operator=+); do
-              if [ ${attempt_counter} -eq ${max_attempts} ];then
-                echo "Max attempts reached"
-                exit 1
-              fi
-          
-              printf '.'
-              attempt_counter=$(($attempt_counter+1))
-              sleep 5
-           done
-           echo "sever ready for testing"
-           npm install -g newman
-           newman -v
-           newman run src/test/java/com/example/integration/calculator.postman_collection.json
+          mvn clean spring-boot:run & 
+          echo "waiting 10 seconds for the server to start"
+          sleep 10 
+          attempt_counter=0
+          max_attempts=10
+          until $(curl --output /dev/null --silent --head --fail http://localhost:8080/api/calculator/calculate?num1=10&num2=5&operator=+); do
+             if [ ${attempt_counter} -eq ${max_attempts} ];then
+               echo "Max attempts reached"
+               exit 1
+             fi
+             printf '.'
+             attempt_counter=$(($attempt_counter+1))
+             sleep 5
+          done
+          echo "server ready for testing"
+          npm install -g newman
+          newman -v
+          newman run src/test/java/com/example/integration/calculator.postman_collection.json

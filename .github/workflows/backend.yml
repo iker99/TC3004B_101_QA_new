@@ -3,9 +3,9 @@ name: Java CI
 on:
   workflow_dispatch:
   push:
-    branches: [ "Back" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "Back" ]
+    branches: [ "main" ]
 
 jobs:
   build:
